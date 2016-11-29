@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slick', [])
-  .directive "slick", ($timeout) ->
+  .directive "slick", ($timeout,$compile) ->
     restrict: "AEC"
     scope:
       initOnload: "@"
@@ -19,6 +19,7 @@ angular.module('slick', [])
       centerPadding: "@"
       cssEase: "@"
       customPaging: "&"
+      customPagingScope: '='
       dots: "@"
       draggable: "@"
       easing: "@"
@@ -65,7 +66,8 @@ angular.module('slick', [])
           currentIndex = scope.currentIndex if scope.currentIndex?
 
           customPaging = (slick, index) ->
-            scope.customPaging({ slick: slick, index: index })
+            customPagingScope = scope.customPagingScope || scope;
+            $compile(scope.customPaging({ slick: slick, index: index }))(customPagingScope)
 
           slider.slick
             accessibility: scope.accessibility isnt "false"

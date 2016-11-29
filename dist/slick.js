@@ -1,7 +1,8 @@
 'use strict';
 angular.module('slick', []).directive('slick', [
   '$timeout',
-  function ($timeout) {
+  '$compile',
+  function ($timeout, $compile) {
     return {
       restrict: 'AEC',
       scope: {
@@ -20,6 +21,7 @@ angular.module('slick', []).directive('slick', [
         centerPadding: '@',
         cssEase: '@',
         customPaging: '&',
+        customPagingScope: '=',
         dots: '@',
         draggable: '@',
         easing: '@',
@@ -70,10 +72,12 @@ angular.module('slick', []).directive('slick', [
               currentIndex = scope.currentIndex;
             }
             customPaging = function (slick, index) {
-              return scope.customPaging({
+              var customPagingScope;
+              customPagingScope = scope.customPagingScope || scope;
+              return $compile(scope.customPaging({
                 slick: slick,
                 index: index
-              });
+              }))(customPagingScope);
             };
             slider.slick({
               accessibility: scope.accessibility !== 'false',
