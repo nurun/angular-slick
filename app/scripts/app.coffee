@@ -69,6 +69,11 @@ angular.module('slick', [])
             customPagingScope = scope.customPagingScope || scope;
             $compile(scope.customPaging({ slick: slick, index: index }))(customPagingScope)
 
+          slider.on 'init', (sl) ->
+            scope.onInit() if attrs.onInit
+            if currentIndex?
+              sl.slideHandler(currentIndex)
+
           slider.slick
             accessibility: scope.accessibility isnt "false"
             adaptiveHeight: scope.adaptiveHeight is "true"
@@ -109,12 +114,6 @@ angular.module('slick', [])
             vertical: scope.vertical is "true"
             prevArrow: if scope.prevArrow then $(scope.prevArrow) else undefined
             nextArrow: if scope.nextArrow then $(scope.nextArrow) else undefined
-
-
-          slider.on 'init', (sl) ->
-            scope.onInit() if attrs.onInit
-            if currentIndex?
-              sl.slideHandler(currentIndex)
 
           slider.on 'afterChange', (event, slick, currentSlide, nextSlide) ->
             scope.onAfterChange() if scope.onAfterChange
