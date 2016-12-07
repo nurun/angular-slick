@@ -88,7 +88,7 @@ angular.module('slick', []).directive('slick', [
             });
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
               if (scope.onAfterChange) {
-                scope.onAfterChange();
+                scope.onAfterChange(event, slick, currentSlide, nextSlide);
               }
               if (currentIndex != null) {
                 return scope.$apply(function () {
