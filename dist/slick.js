@@ -98,17 +98,6 @@ angular.module('slick', []).directive('slick', [
                 });
               }
             });
-            slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
-              if (scope.onAfterChange) {
-                scope.onAfterChange();
-              }
-              if (currentIndex != null) {
-                return scope.$apply(function () {
-                  currentIndex = currentSlide;
-                  return scope.currentIndex = currentSlide;
-                });
-              }
-            });
             slider.slick({
               accessibility: scope.accessibility !== 'false',
               adaptiveHeight: scope.adaptiveHeight === 'true',
