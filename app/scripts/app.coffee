@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('slick', [])
-  .directive "slick", ($timeout) ->
+  .directive "slick", ($timeout,$compile) ->
     restrict: "AEC"
     scope:
       initOnload: "@"
@@ -19,6 +19,7 @@ angular.module('slick', [])
       centerPadding: "@"
       cssEase: "@"
       customPaging: "&"
+      customPagingScope: '='
       dots: "@"
       draggable: "@"
       easing: "@"
@@ -65,7 +66,31 @@ angular.module('slick', [])
           currentIndex = scope.currentIndex if scope.currentIndex?
 
           customPaging = (slick, index) ->
-            scope.customPaging({ slick: slick, index: index })
+            customPagingScope = scope.customPagingScope || scope;
+            $compile(scope.customPaging({ slick: slick, index: index }))(customPagingScope)
+
+          slider.on 'init', (sl) ->
+            scope.onInit() if attrs.onInit
+            if currentIndex?
+              sl.slideHandler(currentIndex)
+
+          slider.on 'beforeChange', (event, slick, currentSlide, nextSlide) ->
+            scope.onBeforeChange({event:event, slick: slick, currentSlide: currentSlide, nextSlide: nextSlide }) if scope.onBeforeChange
+
+            if currentIndex?
+              scope.$apply(->
+                currentIndex = currentSlide
+                scope.currentIndex = currentSlide
+              )
+
+          slider.on 'afterChange', (event, slick, currentSlide, nextSlide) ->
+            scope.onAfterChange({event:event, slick: slick, currentSlide: currentSlide, nextSlide: nextSlide }) if scope.onAfterChange
+
+            if currentIndex?
+              scope.$apply(->
+                currentIndex = currentSlide
+                scope.currentIndex = currentSlide
+              )
 
           slider.slick
             accessibility: scope.accessibility isnt "false"
@@ -107,21 +132,6 @@ angular.module('slick', [])
             vertical: scope.vertical is "true"
             prevArrow: if scope.prevArrow then $(scope.prevArrow) else undefined
             nextArrow: if scope.nextArrow then $(scope.nextArrow) else undefined
-
-
-          slider.on 'init', (sl) ->
-            scope.onInit() if attrs.onInit
-            if currentIndex?
-              sl.slideHandler(currentIndex)
-
-          slider.on 'afterChange', (event, slick, currentSlide, nextSlide) ->
-            scope.onAfterChange() if scope.onAfterChange
-
-            if currentIndex?
-              scope.$apply(->
-                currentIndex = currentSlide
-                scope.currentIndex = currentSlide
-              )
 
           scope.$watch("currentIndex", (newVal, oldVal) ->
             if currentIndex? and newVal? and newVal != currentIndex
