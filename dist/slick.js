@@ -79,7 +79,7 @@ angular.module('slick', []).directive('slick', [
                 index: index
               }))(customPagingScope);
             };
-            slider.on('init', function (sl) {
+            slider.on('init', function (evt, sl) {
               if (attrs.onInit) {
                 scope.onInit();
               }
