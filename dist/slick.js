@@ -87,6 +87,22 @@ angular.module('slick', []).directive('slick', [
                 return sl.slideHandler(currentIndex);
               }
             });
+            slider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+              if (scope.onBeforeChange) {
+                scope.onBeforeChange({
+                  event: event,
+                  slick: slick,
+                  currentSlide: currentSlide,
+                  nextSlide: nextSlide
+                });
+              }
+              if (currentIndex != null) {
+                return scope.$apply(function () {
+                  currentIndex = currentSlide;
+                  return scope.currentIndex = currentSlide;
+                });
+              }
+            });
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
               if (scope.onAfterChange) {
                 scope.onAfterChange({
