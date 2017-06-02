@@ -69,7 +69,7 @@ angular.module('slick', [])
             customPagingScope = scope.customPagingScope || scope;
             $compile(scope.customPaging({ slick: slick, index: index }))(customPagingScope)
 
-          slider.on 'init', (sl) ->
+          slider.on 'init', (evt, sl) ->
             scope.onInit() if attrs.onInit
             if currentIndex?
               sl.slideHandler(currentIndex)
