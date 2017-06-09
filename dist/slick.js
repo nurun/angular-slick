@@ -97,10 +97,8 @@ angular.module('slick', []).directive('slick', [
                 });
               }
               if (currentIndex != null) {
-                return scope.$apply(function () {
-                  currentIndex = currentSlide;
-                  return scope.currentIndex = currentSlide;
-                });
+                currentIndex = currentSlide;
+                return scope.currentIndex = currentSlide;
               }
             });
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
