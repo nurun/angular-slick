@@ -21,24 +21,31 @@ angular.module('slick', [])
       customPaging: "&"
       customPagingScope: '='
       dots: "@"
+      dotsClass: "@"
       draggable: "@"
       easing: "@"
+      edgeFriction: "@"
       fade: "@"
       focusOnSelect: "@"
+      focusOnChange: "@"
       infinite: "@"
       initialSlide: "@"
       lazyLoad: "@"
+      mobileFirst: "@"
       onBeforeChange: "&"
       onAfterChange: "&"
       onInit: "&"
       onReInit: "&"
       onSetPosition: "&"
       pauseOnHover: "@"
+      pauseOnFocus: "@"
       pauseOnDotsHover: "@"
+      respondTo: "@"
       responsive: "="
       rows: "@"
       rtl: "@"
       slide: "@"
+      slidesPerRow: "@"
       slidesToShow: "@"
       slidesToScroll: "@"
       speed: "@"
@@ -47,8 +54,12 @@ angular.module('slick', [])
       touchMove: "@"
       touchThreshold: "@"
       useCSS: "@"
+      useTransform: "@"
       variableWidth: "@"
       vertical: "@"
+      verticalSwiping: "@"
+      waitForAnimate: "@"
+      zIndex: "@"
       prevArrow:"@"
       nextArrow:"@"
 
@@ -105,21 +116,29 @@ angular.module('slick', [])
             cssEase: scope.cssEase or "ease"
             customPaging: if attrs.customPaging then customPaging else undefined
             dots: scope.dots is "true"
+            dotsClass: scope.dotsClass or "slick-dots"
             draggable: scope.draggable isnt "false"
             easing: scope.easing or "linear"
+            edgeFriction: if scope.edgeFriction? then parseFloat(scope.edgeFriction) else 0.35
             fade: scope.fade is "true"
             focusOnSelect: scope.focusOnSelect is "true"
+            focusOnChange: scope.focusOnChange is "true"
             infinite: scope.infinite isnt "false"
             initialSlide:scope.initialSlide or 0
             lazyLoad: scope.lazyLoad or "ondemand"
+            mobileFirst: scope.mobileFirst is "true"
             beforeChange: if attrs.onBeforeChange then scope.onBeforeChange else undefined
             onReInit: if attrs.onReInit then scope.onReInit else undefined
             onSetPosition: if attrs.onSetPosition then scope.onSetPosition else undefined
             pauseOnHover: scope.pauseOnHover isnt "false"
+            pauseOnFocus: scope.pauseOnFocus isnt "false"
+            pauseOnDotsHover: scope.pauseOnDotsHover is "true"
+            respondTo: scope.respondTo or "window"
             responsive: scope.responsive or undefined
             rows: scope.rows or 0
             rtl: scope.rtl is "true"
             slide: scope.slide or "div"
+            slidesPerRow: if scope.slidesPerRow? then parseInt(scope.slidesPerRow, 10) else 1
             slidesToShow: if scope.slidesToShow? then parseInt(scope.slidesToShow, 10) else 1
             slidesToScroll: if scope.slidesToScroll? then parseInt(scope.slidesToScroll, 10) else 1
             speed: if scope.speed? then parseInt(scope.speed, 10) else 300
@@ -128,8 +147,12 @@ angular.module('slick', [])
             touchMove: scope.touchMove isnt "false"
             touchThreshold: if scope.touchThreshold then parseInt(scope.touchThreshold, 10) else 5
             useCSS: scope.useCSS isnt "false"
+            useTransform: scope.useTransform isnt "false"
             variableWidth: scope.variableWidth is "true"
             vertical: scope.vertical is "true"
+            verticalSwiping: scope.verticalSwiping is "true"
+            waitForAnimate: scope.waitForAnimate isnt "false"
+            zIndex: if scope.zIndex? then parseInt(scope.zIndex, 10) else 1000
             prevArrow: if scope.prevArrow then $(scope.prevArrow) else undefined
             nextArrow: if scope.nextArrow then $(scope.nextArrow) else undefined
 
