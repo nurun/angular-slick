@@ -32,6 +32,7 @@ angular.module('slick', [])
       initialSlide: "@"
       lazyLoad: "@"
       mobileFirst: "@"
+      outerEdgeLimit: "@"
       onBeforeChange: "&"
       onAfterChange: "&"
       onInit: "&"
@@ -127,6 +128,7 @@ angular.module('slick', [])
             initialSlide:scope.initialSlide or 0
             lazyLoad: scope.lazyLoad or "ondemand"
             mobileFirst: scope.mobileFirst is "true"
+            outerEdgeLimit: scope.outerEdgeLimit is "true"
             beforeChange: if attrs.onBeforeChange then scope.onBeforeChange else undefined
             onReInit: if attrs.onReInit then scope.onReInit else undefined
             onSetPosition: if attrs.onSetPosition then scope.onSetPosition else undefined
